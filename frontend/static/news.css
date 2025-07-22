@@ -1,0 +1,207 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;  /* Set a default font for body */
+}
+h1{
+    text-align: left;
+    font-size: 40px;
+    color: aliceblue;
+    background-color: rgb(26, 26, 26);
+    padding: 20px ;
+    margin: auto;
+    border:10px;
+}
+
+.navbar {
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: rgb(26, 26, 26); /* For a dark navbar background */
+    color: white;
+}
+
+.navdiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navlogo a {
+    text-decoration: none;
+    color: white;
+    font-size: 24px;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+li {
+    margin-right: 20px;
+}
+
+li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+
+button {
+    padding: 10px;
+    background-color: rgb(78, 22, 78);
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+button a {
+    color: white;
+    font-weight: bold;
+}
+
+/* Container and Banner */
+.container {
+    width: 100%;
+    height: 100%;
+}
+
+.banner {
+    position: relative;
+    width: 100%;
+    height: 65vh; /* Banner height */
+    background-color: black; /* Banner background color */
+}
+
+/* card hover wala */
+/* From Uiverse.io by htwarriors108 */ 
+.card {
+    position: absolute;
+    width: 800px;
+    height: 350px;
+    color: #fff;
+    transition: 0.5s;
+    cursor: pointer;
+    top: 13%;
+    left: 28%;
+  }
+  
+  .card:hover {
+    transform: translateY(-20px);
+  }
+  
+  .card::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(45deg, #ffbc00, #ff0058);
+    border-radius: 1.2em;
+  }
+  
+  .card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #ffbc00, #ff0058);
+    filter: blur(30px);
+  }
+  
+  .card span {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    right: 6px;
+    bottom: 6px;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 2;
+    border-radius: 1em;
+  }
+  
+  .card span::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .card .content {
+    position: relative;
+    padding: 10px;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.5em;
+  }
+
+  /* gauge */
+  * {
+    margin: 0;
+    box-sizing: border-box;
+    --c1: #C1262C;
+    --c2: #F69220;
+    --c3: #23B473;
+  }
+  
+  .speedometer {
+    width: 500px;
+    height: 500px;
+    padding: 50px;
+    border-radius: 50%;
+    background: conic-gradient(
+      from -90deg,
+      var(--c1) 36deg,
+      var(--c2) 0 72deg,
+      var(--c3) 0 108deg,
+      #fce7e700 0
+    );
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .needle {
+    position: absolute;
+    width: 10px;
+    height: 50%;
+    left: 50%;
+    bottom: 50%;
+    background: #ea1c98;
+    transform-origin: bottom center;
+    transform: rotate(calc(var(--score) * 1.8deg - 90deg));
+  }
+  
+  .score {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 800;
+    color: #eee;
+  }
+  

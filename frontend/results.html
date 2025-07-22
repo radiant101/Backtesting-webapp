@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <link rel="stylesheet" href="static/results.css">
+</head>
+<body>
+    <h1>
+        <nav class="navbar">
+            <div class="navdiv">
+                <div class="navlogo"><a href="#">Backtester</a></div>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Results</a></li>
+                    <button><a href="#">Login</a></button>
+                    <button><a href="#">Sign up</a></button>
+                </ul>
+            </div>
+        </nav>
+    </h1>
+    <div class="metrics-container">
+        <div class="metric-card">
+            <h3>Total Return</h3>
+            <p id="totalreturn">--</p>
+        </div>
+        <div class="metric-card">
+            <h3>Max Drawdown</h3>
+            <p id="maxdrawdown">Max Drwadown: {{max_drawdown}}</p>
+        </div>
+        <div class="metric-card">
+            <h3>Sharpe Ratio</h3>
+            <p id="sharpe-ratio">Sharpe Ratio: {{ sharpe_val }}</p>
+        </div>
+        <div class="metric-card">
+            <h3>Portfolio Value</h3>
+            <p id="portfolio-value">--</p>
+        </div>
+        <div class="metric-card">
+            <h3>Number of Trades</h3>
+            <p id="num-trades">--</p>
+        </div>
+        <div class="metric-card">
+            <h3>Win Rate</h3>
+            <p id="win-rate">--%</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <div id="chart"></div>
+    <script>
+        fetch(window.location.href)
+        .then(res => res.json())
+        .then(data =>{
+            const chartData=JSON.parse(data.chart_json);
+            Plotly.newPlot('chart', chartData.data, chartData.layout);
+        })
+        .catch(err => console.error("Error loading result data:", err));
+    </script>
+</body>
+</html>

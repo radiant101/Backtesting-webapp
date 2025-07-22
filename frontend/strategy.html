@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <title>
+            Strategy  
+        </title>
+        <link rel="stylesheet" href="static/strategy.css">
+    </head>
+    <body>
+        <h1>SME</h1>
+        <form id="sme1">
+           <label for="stratname">Strategy:</label><br>
+           <input type="text" id="strat_name" name="strat_name" value="name a stock"><br>
+
+           <label for="symbol">Symbol</label><br>
+           <input type="text" id="symbol" name="symbol" value="EG:AAPL"><br>
+
+           <label for="start_date">Start Date</label><br>
+           <input type="date" id="start_date" name="start_date"><br>
+
+           <label for="end_date">End Date</label><br>
+           <input type="date" id="end_date" name="end_date"><br>
+
+           <label for="short_window">Short-term MA Period:</label><br>
+           <input type="number" id="short_window" name="short_window" min="1" required><br>
+
+           <label for="long_window">Long-term MA Period :</label><br>
+           <input type="number" id="long_window" name="long_window" min="1" required><br>
+           <button type="button" onclick="converttojson()">Run Backtest</button>
+        </form>
+        <script>
+           function converttojson(){
+            let form=document.getElementById("sme1");
+            let formdata={};
+            for(let i=0;i<form.elements.length;i++){
+                let element=form.elements[i];
+                if(element.name && element.type!=="submit"){
+                    formdata[element.name]=element.value;
+                }
+            }
+            /*goes to fast api at port 8001 */
+            /* manage the port if changed */
+            fetch('http://127.0.0.1:8001/strategy/', {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formdata)
+            })
+           .then(response => response.json())
+           .then(result => {
+            if (result.redirect_url) {
+             window.location.href = result.redirect_url;
+            } else {
+           console.error("No redirect_url in response");
+           }
+           })
+          .catch(error => {
+           console.error("Error:", error);
+           });
+    }
+        </script>
+    </body>
+</html>

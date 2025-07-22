@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <link rel="stylesheet" href="static\news.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+</head>
+<body>
+    <h1>
+    <nav class="navbar">
+        <div class="navdiv">
+            <div class="navlogo"><a href="#">Backtester</a></div>
+            <ul>
+                <li><a href="{% url 'index'%}">Home</a></li>
+                <li><a href="{% url 'news' %}">NEWS</a></li>
+                <li><a href="{% url 'strategy' %}">Pre-result</a></li>
+                <li><a href="{% url 'results' %}">Results</a></li>
+                <button><a href="#">Login</a></button>
+                <button><a href="#">Sign up</a></button>
+            </ul>
+        </div>
+    </nav>
+    </h1>
+
+    <!-- Banner -->
+    <div class="container">
+        <div class="banner">
+            <div class="card">
+                <span></span>
+                         <div class="content">Hover Me : )</div>
+                     </div>
+        </div>
+    </div>
+    <!--speedometer-->
+    <div class="speedometer">
+        <div class="needle" style="--score:30">
+            <span class="sccore">300</span>
+        </div>
+    </div>
+</body>
+</html>
