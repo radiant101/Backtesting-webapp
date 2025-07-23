@@ -17,7 +17,7 @@ router = APIRouter()
 async def strategy_endpoint(input: Strategy_Input):
     try:
         csv_path = moving_average_implementation(input)
-        redirect_url = f"http://127.0.0.1:8001/result/?symbol={input.symbol}&short_window={input.short_window}&long_window={input.long_window}"
+        redirect_url = f"http://127.0.0.1:8000/result.html?symbol={input.symbol}&short_window={input.short_window}&long_window={input.long_window}"
         return JSONResponse(content={"redirect_url": redirect_url})
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid input")
