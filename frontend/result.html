@@ -49,10 +49,16 @@
         </div>
     </div>
 
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>
     <div id="chart"></div>
     <script>
-        fetch(window.location.href)
+     const params = new URLSearchParams(window.location.search);
+     const symbol = params.get('symbol');
+     const short_window = params.get('short_window');
+     const long_window = params.get('long_window');
+    </script>
+    <script>
+        fetch(`http://127.0.0.1:8001/result/?symbol=${symbol}&short_window=${short_window}&long_window=${long_window}`)
         .then(res => res.json())
         .then(data =>{
             const chartData=JSON.parse(data.chart_json);

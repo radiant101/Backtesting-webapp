@@ -50,6 +50,7 @@
             })
            .then(response => response.json())
            .then(result => {
+            console.log(result);
             if (result.redirect_url) {
              window.location.href = result.redirect_url;
             } else {
