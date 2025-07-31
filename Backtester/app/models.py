@@ -1,13 +1,24 @@
-from sqlalchemy import Column,Integer,Float,String,DateTime
+from sqlalchemy import Column,Integer,Float,String,DateTime,ForeignKey
 from app.database import Base
-from datetime import datetime,timezone
+from datetime import datetime
+from sqlalchemy.sql import func
 
-class Trades(Base):
-    __tablename__="trades"
+# base comes from databse helps in mapping sqlalchemy or registering tables
+class User(Base):
+    __tablename__="user"
 
-    id=Column(Integer,primary_key=True,nullable=False)
-    ticker=Column(String,nullable=False)
-    price=Column(Float,nullable=False)
-    quantity=Column(Integer,nullable=False)
-    side=Column(String,nullable=False)
-    timestamp=Column(DateTime, nullable=False, default=lambda: datetime.now(timezone.utc))
+    user_id=Column(Integer,primary_key=True,nullable=False)
+    email_id=Column(String)
+    created_at=Column(DateTime)
+
+
+class Backtest(Base):
+    __tablename__="backtestrun"
+
+    id=Column(Integer,primary_key=True,autoincrement=True,nullable=False)
+    user_id=Column(Integer,nullable=False)
+    strat_name=Column(String,nullable=False)
+    symbol=Column(String,nullable=False)
+    start_date=Column(DateTime,nullable=False)
+    end_date=Column(DateTime,nullable=False)
+    run_time=Column(DateTime(timezone=True), server_default=func.now(), nullable=False)

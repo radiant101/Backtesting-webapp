@@ -1,7 +1,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker,declarative_base
 
-Database_URL="postgresql://postgres:admin@localhost:5432/postgres"
+Database_URL="postgresql://postgres:admin@localhost:5432/tradedb"
+
 
 
 engine=create_engine(Database_URL)
@@ -9,8 +10,8 @@ SessionLocal=sessionmaker(bind=engine,autocommit=False,autoflush=False)
 
 
 Base = declarative_base()
+import app.models
 
-from app.models import Trades
 Base.metadata.create_all(bind=engine)
 
 def get_db():
