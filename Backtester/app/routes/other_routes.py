@@ -14,10 +14,17 @@ import plotly.express as px  # Import Plotly Express for charting
 import time
 from app.logic import moving_average_implementation,rsi_implementation  # Ensure your package structure supports this
 from fastapi.responses import JSONResponse
+from app import utils
+
+
 user_routes = APIRouter()
+ 
 
 @user_routes.post("/user",status_code=status.HTTP_201_CREATED,)
 def create_user(user:user_create,db: Session= Depends(get_db)):
+        #hash the user password 
+        hashed_password=utils.hash_password(user.password)
+        user.password=hashed_password
         user_data = user.model_dump()
         brun=User(**user_data)
         db.add(brun)

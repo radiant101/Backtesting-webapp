@@ -18,7 +18,7 @@ class Rsi_Input(BaseModel):
     end_date:datetime=Field()
 
 class user_create(BaseModel):
-     email_id : str
+     email_id : EmailStr
      password: str
      
 class Config:
