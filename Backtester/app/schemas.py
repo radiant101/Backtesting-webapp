@@ -1,4 +1,4 @@
-from pydantic import BaseModel,Field
+from pydantic import BaseModel,Field,EmailStr
 from datetime import datetime
 from typing import Literal
 from typing import Optional
@@ -17,5 +17,9 @@ class Rsi_Input(BaseModel):
     start_date:datetime=Field()
     end_date:datetime=Field()
 
+class user_create(BaseModel):
+     email_id : str
+     password: str
+     
 class Config:
         orm_mode = True

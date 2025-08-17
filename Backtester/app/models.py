@@ -7,8 +7,9 @@ from sqlalchemy.sql import func
 class User(Base):
     __tablename__="user"
 
-    user_id=Column(Integer,primary_key=True,nullable=False)
+    user_id=Column(Integer,primary_key=True,autoincrement=True,nullable=False)
     email_id=Column(String)
+    password=Column(String)
     created_at=Column(DateTime)
 
 
