@@ -20,6 +20,12 @@ class Rsi_Input(BaseModel):
 class user_create(BaseModel):
      email_id : EmailStr
      password: str
-     
+
+class user_out(BaseModel):
+     user_id : int
+     email_id : EmailStr
+     created_at :datetime
+
+
 class Config:
         orm_mode = True

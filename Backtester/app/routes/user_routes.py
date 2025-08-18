@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException,status
 from fastapi.responses import RedirectResponse
 import yfinance as yf
 import numpy as np
-from app.schemas import Strategy_Input,Rsi_Input,user_create
+from app.schemas import Strategy_Input,Rsi_Input,user_create,user_out
 import os
 import pandas as pd
 from app.models import Backtest,User
@@ -14,13 +14,13 @@ import plotly.express as px  # Import Plotly Express for charting
 import time
 from app.logic import moving_average_implementation,rsi_implementation  # Ensure your package structure supports this
 from fastapi.responses import JSONResponse
-from app import utils
+from app import utils,models
 
 
-user_routes = APIRouter()
+router = APIRouter()
  
 
-@user_routes.post("/user",status_code=status.HTTP_201_CREATED,)
+@router.post("/user",status_code=status.HTTP_201_CREATED,)
 def create_user(user:user_create,db: Session= Depends(get_db)):
         #hash the user password 
         hashed_password=utils.hash_password(user.password)
@@ -31,3 +31,11 @@ def create_user(user:user_create,db: Session= Depends(get_db)):
         db.commit()
         db.refresh(brun)
         return {'message' : 'created'}
+
+@router.get("/user/{id}",response_model=user_out)
+def get_user(id:int,db: Session= Depends(get_db)):
+        user=db.query(models.User).filter(models.User.user_id==id).first()
+        if not user:
+         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                             detail=f"User with id :{id} does not exist")
+        return  user

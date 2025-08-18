@@ -1,6 +1,6 @@
 from sqlalchemy import Column,Integer,Float,String,DateTime,ForeignKey
 from app.database import Base
-from datetime import datetime
+from datetime import datetime,timezone
 from sqlalchemy.sql import func
 
 # base comes from databse helps in mapping sqlalchemy or registering tables
@@ -10,7 +10,7 @@ class User(Base):
     user_id=Column(Integer,primary_key=True,autoincrement=True,nullable=False)
     email_id=Column(String)
     password=Column(String)
-    created_at=Column(DateTime)
+    created_at=Column(DateTime(timezone=True),default=lambda: datetime.now(timezone.utc))
 
 
 class Backtest(Base):
