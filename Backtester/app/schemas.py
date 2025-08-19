@@ -25,7 +25,15 @@ class user_out(BaseModel):
      user_id : int
      email_id : EmailStr
      created_at :datetime
+#put operation
+class user_update_put(BaseModel):
+     user_id : int
+     email_id : EmailStr
 
+#patch operation
+class user_update(BaseModel):
+     user_id :Optional[str]=None
+     email_id:Optional[EmailStr]=None
 
 class Config:
         orm_mode = True
