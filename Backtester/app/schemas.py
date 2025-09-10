@@ -35,5 +35,9 @@ class user_update(BaseModel):
      user_id :Optional[str]=None
      email_id:Optional[EmailStr]=None
 
+class UserLogin(BaseModel):
+     email:EmailStr
+     password:str
+
 class Config:
         orm_mode = True

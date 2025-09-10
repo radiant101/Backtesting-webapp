@@ -1,5 +1,5 @@
 from fastapi import FastAPI,Depends
-from app.routes import user_routes, yfinance_routes
+from app.routes import user_routes, yfinance_routes,auth
 from passlib.context import CryptContext
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import SessionLocal
@@ -24,3 +24,4 @@ async def read_root():
 
 app.include_router(user_routes.router)
 app.include_router(yfinance_routes.router)
+app.include_router(auth.router)

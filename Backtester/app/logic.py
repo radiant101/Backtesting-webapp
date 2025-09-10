@@ -12,18 +12,19 @@ from datetime import timedelta
 
 app=APIRouter()
 
-#def get_ohlc_data_from_yfinance(symbol, start_date, end_date):
-    #try:
-        #print(f"Entering download: start_date={start_date}, end_date={end_date} for symbol={symbol}")
-        #ticker = yf.Ticker(str(symbol))
-        #dt = ticker.history(start=str(start_date), end=str(end_date), interval="1d")
-        #if dt.empty:
+'''def get_ohlc_data_from_yfinance(symbol, start_date, end_date):
+    try:
+        print(f"Entering download: start_date={start_date}, end_date={end_date} for symbol={symbol}")
+        ticker = yf.Ticker(str(symbol))
+        dt = ticker.history(start=str(start_date), end=str(end_date), interval="1d")
+        if dt.empty:
             #raise ValueError(f"No data found between {start_date} and {end_date}")
-        #return dt  # Return the data if download is successful
-    #except Exception as e:
-        #print(f"Exception occurred: {e}")
-        # Optionally, re-raise the exception or handle it as needed
-        #raise
+        return dt  # Return the data if download is successful
+    except Exception as e:
+        print(f"Exception occurred: {e}")
+         Optionally, re-raise the exception or handle it as needed
+        raise
+'''
 def get_ohlc_data_from_alpha(symbol, start_date, end_date):
     API_KEY = "LNX0NFGULE1D1EK5"
     symbol = symbol
@@ -53,13 +54,13 @@ def moving_average_implementation(input: Strategy_Input):
     # fetching data from alpha vantage
     ohlc_data = get_ohlc_data_from_alpha(symbol, start_date, end_date)
     if ohlc_data is None or ohlc_data.empty:
-        raise HTTPException(status_code=404, detail="Failed to load data.")
+        raise HTTPException(status_code=404, detail="failed to load data.")
 
     ohlc_data = ohlc_data[np.abs(zscore(ohlc_data["close"])) < 3]
-    print("Before movingaverage function:")
+    print("before moving-average function:")
     resample_interval = '1d'
     ohlc_data = moving_average(ohlc_data, short_window, long_window, resample_interval)
-    print("After movingaverage function:")
+    print("after moving-average function:")
     # Saving data to CSV and returning  its path.
     csv_file_path = os.path.join(os.getcwd(), f"{symbol}_ohlc_data.csv")
     ohlc_data.to_csv(csv_file_path, index=False)
@@ -73,14 +74,14 @@ def moving_average(df, short_window,long_window,resample_interval='1h'):
     
     # Resample data to the specified interval
     ohlc_resampled = df.resample(resample_interval).agg({
-        'open': 'first',
-        'high': 'max',
-        'low': 'min',
-        'close': 'last',
-        'volume': 'sum'
+        'open':'first',
+        'high':'max',
+        'low':'min',
+        'close':'last',
+        'volume':'sum'
     }).dropna()
     
-    # Reset the index after resampling
+    #resampling
     ohlc_resampled.reset_index(inplace=True)
     
     # Calculate moving averages on the resampled data

@@ -9,7 +9,7 @@ from app.models import Backtest,User
 from fastapi import Depends
 from app.database import get_db
 from sqlalchemy.orm import Session
-import plotly.express as px  # Import Plotly Express for charting
+import plotly.express as px  
 #from backtest.metrics import calculate_sharpe, calculate_maxdrawdown #has to work on
 import time
 from app.logic import moving_average_implementation,rsi_implementation  # Ensure your package structure supports this
@@ -17,10 +17,12 @@ from fastapi.responses import JSONResponse
 from app import utils,models
 
 
-router = APIRouter()
+router = APIRouter(
+      prefix="/user"
+)
  
 #create a user
-@router.post("/user",status_code=status.HTTP_201_CREATED,)
+@router.post("/",status_code=status.HTTP_201_CREATED,)
 def create_user(user:user_create,db: Session= Depends(get_db)):
         #hash the user password 
         hashed_password=utils.hash_password(user.password)
@@ -33,7 +35,7 @@ def create_user(user:user_create,db: Session= Depends(get_db)):
         return {'message' : 'created'}
 
 #Read operation
-@router.get("/user/{id}",response_model=user_out)
+@router.get("/{id}",response_model=user_out)
 def get_user(id:int,db: Session= Depends(get_db)):
         user=db.query(models.User).filter(models.User.user_id==id).first()
         if not user:
@@ -42,7 +44,7 @@ def get_user(id:int,db: Session= Depends(get_db)):
         return  user
 
 #Update operation
-@router.put("/user/{id}")
+@router.put("/{id}")
 def update_user(id:int,request_model: user_update_put,db: Session=Depends(get_db)):
       user=db.query(models.User).filter(models.User.user_id==id).first()
       if user==None:
@@ -57,7 +59,7 @@ def update_user(id:int,request_model: user_update_put,db: Session=Depends(get_db
       db.refresh(user)
       return {f"updated with {id} succesfully"}
 
-@router.patch("/user/{id}")
+@router.patch("/{id}")
 def update_user_patch(id:int,request_model:user_update, db: Session=Depends(get_db)):
      user=db.query(models.User).filter(models.User.user_id==id).first()
      if user is None:
@@ -74,7 +76,7 @@ def update_user_patch(id:int,request_model:user_update, db: Session=Depends(get_
      return {"patched succesfully"}
      
 #Delete operation
-@router.delete("/user/{id}")
+@router.delete("/{id}")
 def delete_user(id:int,db:Session=Depends(get_db)):
       user_data=db.query(models.User).filter(models.User.user_id==id).first()
       if user_data==None:
