@@ -13,7 +13,7 @@ def login(user_credentials:UserLogin,db :Session =Depends(get_db)):
     
     if user is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="User not found")
-    if not verify(user.password,user_credentials.password):
+    if not verify(user_credentials.password,user.password):
      raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="Invalid credential")
     
     #create token
